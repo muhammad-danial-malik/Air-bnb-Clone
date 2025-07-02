@@ -32,7 +32,7 @@ signUpbtn.addEventListener("click", (e) => {
 
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  if(!username || ! email || !password || !confPassword){
+  if (!username || !email || !password || !confPassword) {
     showAlert("All fields are require.", "error");
     return;
   }
@@ -51,5 +51,38 @@ signUpbtn.addEventListener("click", (e) => {
     return;
   }
 
-  const url = "";
+  const postData = async (username, email, password) => {
+    const url = "http://localhost:8000/api/v1/users/register";
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ username, email, password }),
+      });
+
+      console.log(response);
+
+      const result = await response.json();
+
+      console.log(result)
+
+      if (response.ok) {
+        showAlert("Signup successful!", "success");
+        console.log("Server Response:", result);
+      } else {
+        showAlert(
+          result.message || "Signup failed. Please try again.",
+          "error"
+        );
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      showAlert("Something went wrong. Please check your connection.", "error");
+    }
+  };
+
+  postData(username, email, password);
 });
