@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404</title>
+    <link rel="shortcut icon" href="./assets/favi-icon.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            height: 100vh;
+            margin: 0 10rem;
+        }
+
+        nav .logo {
+            padding: 25px 0;
+        }
+
+        nav .logo img {
+            width: 120px;
+            height: 35px;
+            object-fit: fill;
+            filter: contrast(0.5);
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .container .left {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .container .left .heading{
+            font-size: 8rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .container .left .sub-heading {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: #555;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">
+            <a href="./index.html">
+                <img src="./assets/logo-black.png" alt="Logo">
+            </a>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="left">
+            <h1 class="heading">Oops!</h1>
+            <h3 class="sub-heading">We can't seem to find the page you're looking for.</h3>
+            <p>Error code: 404</p>
+            <a href="./index.html" class="btn">Go to Home</a>
+        </div>
+
+        <div class="right">
+            <img src="./assets/404-Airbnb.gif" alt="">
+        </div>
+    </div>
+
+</body>
+
+</html>
