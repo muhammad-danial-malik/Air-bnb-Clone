@@ -125,44 +125,7 @@ document.querySelector(".dimmed-background").addEventListener("scroll", () => {
 
 const cardsLinks = document.querySelectorAll(".card-Link");
 
-console.log(cardsLinks);
-
 cardsLinks.forEach((cardLink) => {
   cardLink.href = "./room.html";
 });
 
-// room Image preview
-document.addEventListener("DOMContentLoaded", () => {
-  const lightbox = document.querySelector(".image-lightbox");
-  const openImages = document.querySelectorAll(".images-view img");
-  const closeBtn = document.querySelector(".close-lightbox");
-
-  // Initialize Swiper
-  const swiper = new Swiper(".lightbox-swiper", {
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
-    loop: true,
-  });
-
-  openImages.forEach((img, index) => {
-    img.addEventListener("click", () => {
-      lightbox.classList.remove("hidden");
-      document.body.classList.add("no-scroll"); // Disable scroll
-      swiper.slideTo(index);
-    });
-  });
-
-  closeBtn.addEventListener("click", () => {
-    lightbox.classList.add("hidden");
-    document.body.classList.remove("no-scroll"); // Enable scroll
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape") {
-      lightbox.classList.add("hidden");
-      document.body.classList.remove("no-scroll");
-    }
-  });
-});

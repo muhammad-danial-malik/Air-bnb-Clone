@@ -80,6 +80,7 @@ a {
 #header .navbar .right-content .login {
     padding: 10px 15px;
     border-radius: 25px;
+    cursor: pointer;
 }
 
 #header .navbar .right-content .login:hover {
@@ -90,6 +91,7 @@ a {
 #header .navbar .right-content .host {
     padding: 10px 15px;
     border-radius: 25px;
+    cursor: pointer;
 }
 
 #header .navbar .right-content .host:hover {
@@ -492,10 +494,10 @@ a {
     opacity: 1;
 }
 
-.form.signup {
+/* .form.signup {
     opacity: 0;
     pointer-events: none;
-}
+} */
 
 .forms.show-signup .form.signup {
     opacity: 1;
@@ -705,6 +707,60 @@ a.google span {
     opacity: 0;
     pointer-events: none;
 }
+
+/* Base styles */
+.alert {
+    position: fixed;
+    top: 20px;
+    right: 50%;
+    transform: translateX(50%);
+    padding: 15px 20px;
+    border-radius: 5px;
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 15px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 250px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.5s ease;
+}
+
+/* Alert types */
+.alert.success {
+    background-color: #28a745;
+}
+
+.alert.error {
+    background-color: #dc3545;
+}
+
+/* 
+.alert.warning {
+    background-color: #ffc107;
+    color: #212529;
+}
+
+.alert.info {
+    background-color: #17a2b8;
+} */
+
+
+/* Close button */
+#alert-close {
+    margin-left: auto;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Hidden state */
+.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
 
 /* form styling end */
 
