@@ -55,7 +55,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   return res
     .status(201)
-    .json(new ApiResponse(200, "User registered successfully",createdUser));
+    .json(new ApiResponse(200, "User registered successfully", createdUser));
 });
 
 const loginUser = asyncHandler(async (req, res) => {
@@ -74,7 +74,7 @@ const loginUser = asyncHandler(async (req, res) => {
   const isPasswordValid = await user.isPasswordCorrect(password);
 
   if (!isPasswordValid) {
-    throw new ApiError(401, "Invalid user credentials");
+    throw new ApiError(401, "Invalid user password");
   }
 
   const { accessToken, refreshToken } = await generateAccessAndRefreshToken(
@@ -90,11 +90,11 @@ const loginUser = asyncHandler(async (req, res) => {
     .cookie("refreshToken", refreshToken, cookiesOptions)
     .cookie("accessToken", accessToken, cookiesOptions)
     .json(
-      new ApiResponse(
-        200,
-        { user: loggedInUser, accessToken, refreshToken },
-        "User logged in successfully"
-      )
+      new ApiResponse(200, "User logged in successfully", {
+        user: loggedInUser,
+        accessToken,
+        refreshToken,
+      })
     );
 });
 
@@ -115,11 +115,7 @@ const logoutUser = asyncHandler(async (req, res) => {
     .status(200)
     .clearCookie("refreshToken", cookiesOptions)
     .clearCookie("accessToken", cookiesOptions)
-    .json(new ApiResponse(200, {}, "User logged out successfully"));
+    .json(new ApiResponse(200, "User logged out successfully", {}));
 });
 
-export {
-  registerUser,
-  loginUser,
-  logoutUser,
-};
+export { registerUser, loginUser, logoutUser };
