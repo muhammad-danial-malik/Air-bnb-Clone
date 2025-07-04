@@ -19,11 +19,11 @@ function hideAlert() {
 // Creating Scroller Cards
 
 const cityHeadings = [
-  "Popular homes in ",
-  "Best places available in ",
-  "Stay in ",
-  "Available next month in ",
-  "Homes in ",
+  "Popular homes in",
+  "Best places available in",
+  "Stay in",
+  "Available next month in",
+  "Homes in",
 ];
 
 window.addEventListener("load", async () => {
@@ -40,14 +40,52 @@ window.addEventListener("load", async () => {
       console.log(cardsData);
 
       const mainContent = document.querySelector(".main-content");
+      let i = 0;
 
       for (let key in cardsData) {
-        const roomInfo = cardsData[key];
+        const roomListing = cardsData[key];
 
-        // const cityHeading = document.querySelector(".content-header");
+        let cardsHtml = "";
 
-        // cityHeading.innerHTML = `<span class="heading">Popular homes in ${key.trim()} &gt;</span>`;
-        console.log(key);
+        roomListing.forEach((listing) => {
+          const { _id, type, city, price, images } = listing;
+          const imageUrl = images?.[0]?.url || "./fallback.jpg";
+
+          cardsHtml += `
+                <a href="http://localhost:8000/api/v1/rooms/${_id}" alt="card-link" class="card-Link">
+                    <div class="card">
+                        <div class="badge">
+                            <span class="badge-text">Guest favorite</span>
+                            <i class="fa-regular fa-heart heart-icon"></i>
+                        </div>
+                        <img src="${imageUrl}" alt="">
+                        <div class="card-content">
+                            <span class="title">${type} in</span>
+                            <span class="location">${city}</span>
+                            <span class="price">$${price}/night</span>
+                        </div>
+                    </div>
+                </a>
+            `;
+        });
+
+        const listingsHtml = `
+        <div class="popular-listings">
+            <div class="content-header">
+                <span class="heading">${cityHeadings[i]} ${city} &gt;</span>
+                <div>
+                    <span class="icons left-arrow disabled"><i class="fa-solid fa-less-than"></i></span>
+                    <span class="icons right-arrow"><i class="fa-solid fa-greater-than"></i></span>
+                </div>
+            </div>
+             <div class="slider-content slider">
+            ${cardsHtml}
+            </div>
+        </div>
+        `;
+
+        mainContent.insertAdjacentHTML(listingsHtml);
+        i++;
       }
     } else {
       showAlert(result.message || "Cards fetching failed.", "error");
