@@ -171,7 +171,7 @@ window.addEventListener("load", () => {
     loginSignupBtn.classList.remove("btnInactive");
     logoutBtn.classList.add("btnInactive");
 
-    showAlert("Session expired. Please login again.", "error");
+    // showAlert("Session expired. Please login again.", "error");
   } else {
     loginSignupBtn.classList.add("btnInactive");
     logoutBtn.classList.remove("btnInactive");
