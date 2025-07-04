@@ -83,6 +83,11 @@ a {
     cursor: pointer;
 }
 
+#header .navbar .right-content .login.btnInactive {
+    display: none;
+    pointer-events: none;
+}
+
 #header .navbar .right-content .login:hover {
     background: #FF385C;
     color: #ffffff;
@@ -502,7 +507,7 @@ a {
 .forms.show-signup .form.signup {
     opacity: 1;
     pointer-events: auto;
-    top:5%;
+    top: 5%;
 }
 
 .forms.show-signup .form.login,

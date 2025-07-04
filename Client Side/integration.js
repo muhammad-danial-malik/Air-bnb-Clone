@@ -92,6 +92,8 @@ signUpbtn.addEventListener("click", (e) => {
 });
 
 // Login User
+let accessToken;
+let refreshToken;
 
 const loginBtn = document.querySelector("#loginBtn_A");
 
@@ -122,11 +124,25 @@ loginBtn.addEventListener("click", (e) => {
       const result = await response.json();
 
       if (response.ok) {
-        showAlert("login successful!", "success");
+        accessToken = result.data.accessToken;
+        refreshToken = result.data.refreshToken;
+
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("refreshToken", refreshToken);
+
         console.log("Server Response:", result);
+
+        const loginTime = new Date().getTime();
+        localStorage.setItem("loginTime", loginTime);
+
         setTimeout(() => {
           forms.classList.remove("show-login", "show-signup", "show-forgot");
+
+          loginSignupBtn.classList.add("btnInactive");
+          logoutBtn.classList.remove("btnInactive");
         }, 2100);
+
+        showAlert("login successful!", "success");
       } else {
         showAlert(result.message || "login failed. Please try again.", "error");
       }
@@ -137,4 +153,76 @@ loginBtn.addEventListener("click", (e) => {
   };
 
   postData(email, password);
+});
+
+window.addEventListener("load", () => {
+  const token = localStorage.getItem("accessToken");
+  const loginTime = localStorage.getItem("loginTime");
+
+  const FIVE_HOURS = 5 * 60 * 60 * 1000;
+
+  if (!token || !loginTime || new Date().getTime() - loginTime > FIVE_HOURS) {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+    localStorage.removeItem("loginTime");
+    accessToken = null;
+    refreshToken = null;
+
+    loginSignupBtn.classList.remove("btnInactive");
+    logoutBtn.classList.add("btnInactive");
+
+    showAlert("Session expired. Please login again.", "error");
+  } else {
+    loginSignupBtn.classList.add("btnInactive");
+    logoutBtn.classList.remove("btnInactive");
+  }
+});
+
+// logout
+const loginSignupBtn = document.querySelector("#loginSignupbtn");
+const logoutBtn = document.querySelector("#logoutBtn");
+
+logoutBtn.addEventListener("click", () => {
+  const token = localStorage.getItem("accessToken");
+
+  if (!token) {
+    showAlert("UnAuthorize Access", "error");
+    return;
+  }
+
+  const logout = async () => {
+    const url = "http://localhost:8000/api/v1/users/logout";
+
+    try {
+      const response = await fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("loginTime");
+        accessToken = null;
+        refreshToken = null;
+
+        showAlert("Logout successful!", "success");
+
+        loginSignupBtn.classList.remove("btnInactive");
+        logoutBtn.classList.add("btnInactive");
+      } else {
+        showAlert(result.message || "Logout failed.", "error");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+      showAlert("Something went wrong. Please check your connection.", "error");
+    }
+  };
+
+  logout();
 });
