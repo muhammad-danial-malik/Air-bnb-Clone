@@ -334,11 +334,20 @@ a {
     margin: 10px 0 20px 5px;
 }
 
-.main-content .slider-content .card .card-content .title,
-.main-content .slider-content .card .card-content .location {
+.main-content .slider-content .card .card-content .title {
     font-size: 15px;
     font-weight: 600;
     margin-bottom: 0.5rem;
+    width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+
+.main-content .slider-content .card .card-content .title:hover {
+    white-space: normal;
+    text-overflow: clip;
 }
 
 .main-content .slider-content .card .card-content .price {

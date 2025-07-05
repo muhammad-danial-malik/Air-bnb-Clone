@@ -48,7 +48,7 @@ window.addEventListener("load", async () => {
         let cardsHtml = "";
 
         roomListing.forEach((listing) => {
-          const { _id, type, city, price, images } = listing;
+          const { _id, name, city, price, images } = listing;
           const imageUrl = images?.[0]?.url || "./fallback.jpg";
 
           cardsHtml += `
@@ -60,8 +60,7 @@ window.addEventListener("load", async () => {
                         </div>
                         <img src="${imageUrl}" alt="">
                         <div class="card-content">
-                            <span class="title">${type} in</span>
-                            <span class="location">${city}</span>
+                            <span class="title">${name} in ${city}</span>
                             <span class="price">$${price}/night</span>
                         </div>
                     </div>
@@ -72,7 +71,7 @@ window.addEventListener("load", async () => {
         const listingsHtml = `
         <div class="popular-listings">
             <div class="content-header">
-                <span class="heading">${cityHeadings[i]} ${city} &gt;</span>
+                <span class="heading">${cityHeadings[i]} ${key} &gt;</span>
                 <div>
                     <span class="icons left-arrow disabled"><i class="fa-solid fa-less-than"></i></span>
                     <span class="icons right-arrow"><i class="fa-solid fa-greater-than"></i></span>
@@ -84,7 +83,7 @@ window.addEventListener("load", async () => {
         </div>
         `;
 
-        mainContent.insertAdjacentHTML(listingsHtml);
+        mainContent.insertAdjacentHTML("beforeend", listingsHtml);
         i++;
       }
     } else {
