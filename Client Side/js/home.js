@@ -104,7 +104,7 @@ window.addEventListener("load", async () => {
       const href = cardLink.getAttribute("href");
       sessionStorage.setItem("cardUrl", href);
 
-      window.location.href = "./room.html";
+      window.location.href = `./room.html`;
     });
   });
 });
