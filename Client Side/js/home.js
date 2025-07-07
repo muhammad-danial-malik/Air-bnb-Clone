@@ -52,7 +52,7 @@ window.addEventListener("load", async () => {
           const imageUrl = images?.[0]?.url || "./fallback.jpg";
 
           cardsHtml += `
-                <a href="http://localhost:8000/api/v1/rooms/${_id}" alt="card-link" class="card-Link">
+                <a href="http://localhost:8000/api/v1/rooms/${_id}" alt="card-link" class="card-link">
                     <div class="card">
                         <div class="badge">
                             <span class="badge-text">Guest favorite</span>
@@ -93,4 +93,18 @@ window.addEventListener("load", async () => {
     console.error("Error:", error);
     showAlert("Something went wrong. Please check your connection.", "error");
   }
+
+  // room
+
+  const cardsLinks = document.querySelectorAll(".card-link");
+
+  cardsLinks.forEach((cardLink) => {
+    cardLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      const href = cardLink.getAttribute("href");
+      sessionStorage.setItem("cardUrl", href);
+
+      window.location.href = "./room.html";
+    });
+  });
 });

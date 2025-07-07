@@ -122,10 +122,3 @@ document
 document.querySelector(".dimmed-background").addEventListener("scroll", () => {
   document.querySelector(".dimmed-background").scroll = no;
 });
-
-const cardsLinks = document.querySelectorAll(".card-Link");
-
-cardsLinks.forEach((cardLink) => {
-  cardLink.href = "./room.html";
-});
-
